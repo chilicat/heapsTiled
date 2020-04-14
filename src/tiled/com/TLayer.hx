@@ -80,33 +80,33 @@ class TLayer  {
 		this.props = props;
 	}
 
-	@:deprecated("Use getProps().setProps(name, v)")
+	@:deprecated("Use getProps().set(name, v)")
 	public function setProp(name, v) {
-		props.setProp(name, v);
+		props.set(name, v);
 	}
 
-	@:deprecated("Use getProps().hasProp(name, v)")
+	@:deprecated("Use getProps().has(name)")
 	public inline function hasProp(name) {
-		return props.hasProp(name);
+		return props.has(name);
 	}
 
-	@:deprecated("Use getProps().getPropStr(name, v)")
+	@:deprecated("Use getProps().getStr(name)")
 	public function getPropStr(name) : Null<String> {
-		return props.getPropStr(name);
+		return props.getStr(name);
 	}
 
-	@:deprecated("Use getProps().getPropInt(name, v)")
+	@:deprecated("Use getProps().getInt(name)")
 	public function getPropInt(name) : Int {
-		return props.getPropInt(name);
+		return props.getInt(name);
 	}
 
-	@:deprecated("Use getProps().getPropFloat(name, v)")
+	@:deprecated("Use getProps().getFloat(name)")
 	public function getPropFloat(name) : Float {
-		return props.getPropFloat(name);
+		return props.getFloat(name);
 	}
 
-	@:deprecated("Use getProps().getPropBool(name, v)")
+	@:deprecated("Use getProps().getBool(name)")
 	public function getPropBool(name) : Bool {
-		return props.getPropBool(name);
+		return props.getBool(name);
 	}
 }

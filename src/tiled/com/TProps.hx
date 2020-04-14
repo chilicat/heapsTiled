@@ -18,7 +18,7 @@ class TProps {
         var props = new TProps();
         if(n.hasNode.properties) {
             for(p in n.node.properties.nodes.property) {
-                props.setProp(p.att.name, p.att.value);
+                props.set(p.att.name, p.att.value);
             }
         }
         return props;
@@ -28,29 +28,29 @@ class TProps {
         this.internal = new Map();
     }
 
-    public function setProp(name, v) {
+    public function set(name, v) {
 		internal.set(name, v);
 	}
-    public inline function hasProp(name) {
+    public inline function has(name) {
 		return internal.exists(name);
 	}
 
-	public function getPropStr(name) : Null<String> {
+	public function getStr(name) : Null<String> {
 		return internal.get(name);
 	}
 
-	public function getPropInt(name) : Int {
-		var v = getPropStr(name);
+	public function getInt(name) : Int {
+		var v = getStr(name);
 		return v==null ? 0 : Std.parseInt(v);
 	}
 
-	public function getPropFloat(name) : Float {
-		var v = getPropStr(name);
+	public function getFloat(name) : Float {
+		var v = getStr(name);
 		return v==null ? 0 : Std.parseFloat(v);
 	}
 
-	public function getPropBool(name) : Bool {
-		var v = getPropStr(name);
+	public function getBool(name) : Bool {
+		var v = getStr(name);
 		return v=="true";
     }
 }
