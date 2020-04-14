@@ -1,11 +1,11 @@
 package tiled.com;
 
-class TLayer {
+class TLayer  {
 	public var id : Int;
 	public var name : String = "";
 	public var wid : Int;
 	public var hei : Int;
-	var props : Map<String,String> = new Map();
+	var props : TProps;
 	var tmap : TMap;
 
 	var ids : Array<Int> = [];
@@ -72,30 +72,41 @@ class TLayer {
 		return id;
 	}
 
+	public function getProps() : TProps {
+		return props;
+    }
+    
+	public function setProps(props : TProps) {
+		this.props = props;
+	}
+
+	@:deprecated("Use getProps().setProps(name, v)")
 	public function setProp(name, v) {
-		props.set(name, v);
+		props.setProp(name, v);
 	}
 
+	@:deprecated("Use getProps().hasProp(name, v)")
 	public inline function hasProp(name) {
-		return props.exists(name);
+		return props.hasProp(name);
 	}
 
+	@:deprecated("Use getProps().getPropStr(name, v)")
 	public function getPropStr(name) : Null<String> {
-		return props.get(name);
+		return props.getPropStr(name);
 	}
 
+	@:deprecated("Use getProps().getPropInt(name, v)")
 	public function getPropInt(name) : Int {
-		var v = getPropStr(name);
-		return v==null ? 0 : Std.parseInt(v);
+		return props.getPropInt(name);
 	}
 
+	@:deprecated("Use getProps().getPropFloat(name, v)")
 	public function getPropFloat(name) : Float {
-		var v = getPropStr(name);
-		return v==null ? 0 : Std.parseFloat(v);
+		return props.getPropFloat(name);
 	}
 
+	@:deprecated("Use getProps().getPropBool(name, v)")
 	public function getPropBool(name) : Bool {
-		var v = getPropStr(name);
-		return v=="true";
+		return props.getPropBool(name);
 	}
 }

@@ -28,7 +28,6 @@ class TMap {
 		var folder = tmxRes.entry.directory;
 		var xml = new haxe.xml.Access( Xml.parse(tmxRes.entry.getText()) );
 		xml = xml.node.map;
-
 		wid = Std.parseInt( xml.att.width );
 		hei = Std.parseInt( xml.att.height );
 		tileWid = Std.parseInt( xml.att.tilewidth );
@@ -47,10 +46,8 @@ class TMap {
 			layers.push(layer);
 
 			// Properties
-			if( l.hasNode.properties )
-				for(p in l.node.properties.nodes.property)
-					layer.setProp(p.att.name, p.att.value);
-
+			layer.setProps(TProps.fromXML(l.x));
+			
 			// Tile IDs
 			var data = l.node.data;
 			switch( data.att.encoding ) {
@@ -229,6 +226,25 @@ class TMap {
 		var tile = hxd.Res.load(file.entry.directory + "/" +xml.node.image.att.source).toTile();
 
 		var e = new TTileset(xml.att.name, tile, Std.parseInt(xml.att.tilewidth), Std.parseInt(xml.att.tileheight), baseIdx);
+
+		/*
+		<tileset>
+			...
+			<tile id="15">
+				<properties>
+					<property name="name1" value="value1"/>
+					<property name="name2" value="value2"/>
+					...
+				</properties>
+			</tile>
+		*/
+		for(t in xml.nodes.tile) {
+			var tid = Std.parseInt(t.att.id);
+			var tprops = TProps.fromXML(t.x);
+			e.setTileProps(tid, tprops);
+			trace(tid + "  " + tprops);
+		}
+
 		return e;
 	}
 
