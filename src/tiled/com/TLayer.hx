@@ -2,9 +2,11 @@ package tiled.com;
 
 class TLayer  {
 	public var id : Int;
+	public var opacity:Float = 1.0;
 	public var name : String = "";
 	public var wid : Int;
 	public var hei : Int;
+
 	var props : TProps;
 	var tmap : TMap;
 
@@ -13,10 +15,11 @@ class TLayer  {
 	var yFlip : Map<Int,Bool> = new Map();
 	var content : Map<Int,Int> = new Map();
 
-	public function new(tmap:TMap, name:String, id:Int, w, h) {
+	public function new(tmap:TMap, name:String, id:Int, w, h, opacity:Float) {
 		this.tmap = tmap;
 		this.name = name;
 		this.id = id;
+		this.opacity = opacity;
 		wid = w;
 		hei = h;
 	}
@@ -70,6 +73,15 @@ class TLayer  {
 		var id = content.get(cx+cy*wid);
 		id -= tmap.getTileSet(id).baseId;
 		return id;
+	}
+
+	public function getTileProps(cx:Int, cy:Int) : TProps {
+		if( !hasTile(cx,cy) )
+			return null;
+		var id = content.get(cx+cy*wid);
+		var tset = tmap.getTileSet(id);
+		id -= tset.baseId;
+		return tset.getTileProps(id);
 	}
 
 	public function getProps() : TProps {

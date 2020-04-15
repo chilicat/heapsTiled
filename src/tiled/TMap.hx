@@ -39,10 +39,13 @@ class TMap {
 			var set = readTileset(folder, t.att.source, Std.parseInt( t.att.firstgid ));
 			tilesets.push(set);
 		}
-
 		// Parse layers
 		for(l in xml.nodes.layer) {
-			var layer = new TLayer( this, Std.string(l.att.name), Std.parseInt(l.att.id), Std.parseInt(l.att.width), Std.parseInt(l.att.height) );
+			var opacity = 1.0;
+			if(l.has.opacity) {
+				opacity = Std.parseFloat(l.att.opacity);
+			}
+			var layer = new TLayer( this, Std.string(l.att.name), Std.parseInt(l.att.id), Std.parseInt(l.att.width), Std.parseInt(l.att.height), opacity);
 			layers.push(layer);
 
 			// Properties
@@ -242,9 +245,7 @@ class TMap {
 			var tid = Std.parseInt(t.att.id);
 			var tprops = TProps.fromXML(t.x);
 			e.setTileProps(tid, tprops);
-			trace(tid + "  " + tprops);
 		}
-
 		return e;
 	}
 
